@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>FSN Protos</title>
+	<meta charset="UTF-8">
+  	<meta name="description" content="Prototyping widgets for the Favor Solutions Network">
+  	<meta name="keywords" content="broker tools, ledger mockup, complementary currency, transition economics">
+  	<meta name="author" content="SQGLZ">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  	<link rel="stylesheet" type="text/css" href="styles/type.css">
+  	<link rel="stylesheet" type="text/css" href="styles/layout.css">
+  	<link rel="stylesheet" type="text/css" href="styles/ui.css">
+
+  	<script type="text/javascript" src="scripts/nav.js"></script>
+  	<script type="text/javascript" src="scripts/broker.js"></script>
+</head>
+<body>
+
+	<h1 class="type__header">FSN Prototype GUI</h1>
+	<p class="type__header">Open Console for Details</p>
+	<div class="medium-space"></div>
+
+	<div class="ui__nav layout__nav">
+		<span id="summary-trigger" class="type__nav-item type__trigger">SUMMARY</span><span class="type__pipe"> | </span>
+		<span id="ledger-trigger" class="type__nav-item type__trigger">LEDGER</span><span class="type__pipe"> | </span>
+		<span id="transaction-trigger" class="type__nav-item type__trigger">TRANSACTION</span><span class="type__pipe"> | </span>
+		<span id="members-trigger" class="type__nav-item type__trigger">MEMBERS</span><span class="type__pipe">	
+	</div><!-- NAV -->
+	<div class="ui__sub-nav layout__sub-nav">
+		<span class="type__subnav-link type__trigger">broker training videos</span> | 
+		<span class="type__subnav-link type__trigger">help articles</span>
+	</div><!-- SUB NAV -->
+
+	<div id="summary-box" class="layout__major-section">
+		<h2 class="type__section-heading">NETWORK SUMMARY</h2>
+		<p class="type__section-description">Here we have an overview of major statistics for the Favor Solutions Network.</p>
+	</div><!-- SUMMARY -->
+
+	<div id="ledger-box" class="layout__major-section hidden">
+		<h2 class="type__section-heading">NETWORK LEDGER</h2>
+		<p class="type__section-description">This view offers a comprehensive record of all transactions.</p>
+	</div><!-- LEDGER -->
+
+	<div id="transaction-box" class="layout__major-section hidden">
+		<h2 class="type__section-heading">ENTER TRANSACTION</h2>
+		<p class="type__section-description">Via this interface a broker may add a new transaction to the ledger.</p>
+
+		<form id="broker-form">
+			<label class="type__label" for="purchaser">Purchaser</label>
+			<input id="purchaser" class="type__field" type="text" name="purchaser" placeholder="@jacklovesbeans">
+			<label class="type__label" for="recipient">Recipient</label>
+			<input id="recipient" class="type__field" type="text" name="recipient" placeholder="@oldcowfan">
+			<label class="type__label" for="transaction-date">Effective Date</label>
+			<input id="transaction-date" class="type__field" type="date" name="transaction-date">
+
+			<p>Will this transaction be one time or recurring?</p>
+			<input id="one-time" type="radio" id="one-time" name="recurring-or-not" value="one-time" checked="checked">
+			<label for="one-time">One Time</label>
+			<input id="recurring" type="radio" id="recuring" name="recurring-or-not" value="recurring">
+			<label for="recurring">Recurring</label><br>
+
+			<div id="frequency-box" class="layout__form__sub-box hidden">
+				<input type="radio" id="monthly" name="frequency" value="monthly" checked="checked">
+				<label for="monthly">Monthly</label>
+				<input type="radio" id="weekly" name="frequency" value="weekly">
+				<label for="weekly">Weekly</label>
+			</div><!-- FREQUENCY BOX -->
+
+			<label class="type__label" for="price">Favor Amount</label>
+			<input id="price" class="type__field" type="number" name="price" placeholder="100">
+			<label class="type__label" for="title">Transaction Title</label>
+			<input id="title" class="type__field" type="text" name="title" placeholder="Magic Beans, cheap">
+			<label class="type__label" for="description">Transaction Description</label>
+			<textarea id="transaction-description" class="type__textarea" placeholder="Please describe the transaction as accurately as is reasonable. Description should be sufficient to determine that currency speculation and other other anti-network behavior are not at work."></textarea>
+
+			<label class="type__label" for="broker">Broker Username</label>
+			<input id="broker" class="type__field" type="text" name="broker" placeholder="@tomsawyer">
+			<label class="type__label" for="password">Broker Password</label>
+			<input id="password" class="type__field" type="password" name="password" placeholder="password">
+
+			<div class="small-space"></div>
+
+			<p>Do you attest that this transaction meets our network guidelines?</p>
+			<input id="assurance" type="checkbox" name="assurance">
+			<label for="assurance">Yes, I, <span id="broker-name">Broker Name</span>, most certainly do!</label>
+
+		</form>
+
+		<div id="submit" class="layout__submission-button">
+			<span class="type__submit-copy">CREATE TRANSACTION</span>
+		</div><!-- SUBMIT BUTTON -->
+
+
+	</div><!-- TRANSACTION -->
+
+	<div id="members-box" class="layout__major-section hidden">
+		<h2 class="type__section-heading">MEMBER ROSTER</h2>
+		<p class="type__section-description">Here we would have a list of all FSN Members. The table should have columns for:</p>
+		<ul>
+			<li>Member Name</li>
+			<li>Username</li>
+			<li>Join Date</li>
+			<li>Balance</li>
+			<li>Last Transaction Title</li>
+			<li>Last Transaction Date</li>
+		</ul>
+		<p>The first four items should link to that Member’s T-chart. The latter two should link to the transaction details.</p>
+
+	</div><!-- MEMBERS -->
+
+
+<script type="text/javascript">
+	
+	// NAV VARIABLES
+
+		const summaryTrigger = document.getElementById("summary-trigger");
+		const ledgerTrigger = document.getElementById("ledger-trigger");
+		const transactionTrigger = document.getElementById("transaction-trigger");
+		const membersTrigger = document.getElementById("members-trigger");
+
+		const summaryBox = document.getElementById("summary-box");
+		const ledgerBox = document.getElementById("ledger-box");
+		const transactionBox = document.getElementById("transaction-box");
+		const membersBox = document.getElementById("members-box");
+
+	// NAV OPERATIONS
+
+		// SHOW SUMMARY
+		summaryTrigger.addEventListener('click', function() {
+				// console.log("summary trigger clicked");
+				summaryBox.classList.remove("hidden");
+				ledgerBox.classList.add("hidden");
+				transactionBox.classList.add("hidden");
+				members.classList.add("hidden");
+		})
+
+		// SHOW LEDGER
+		ledgerTrigger.addEventListener('click', function() {
+				// console.log("summary trigger clicked");
+				summaryBox.classList.add("hidden");
+				ledgerBox.classList.remove("hidden");
+				transactionBox.classList.add("hidden");
+				members.classList.add("hidden");
+		})
+
+		// SHOW TRANSACTION
+		transactionTrigger.addEventListener('click', function() {
+				// console.log("summary trigger clicked");
+				summaryBox.classList.add("hidden");
+				ledgerBox.classList.add("hidden");
+				transactionBox.classList.remove("hidden");
+				membersBox.classList.add("hidden");
+		})
+
+		// SHOW MEMBERS
+		membersTrigger.addEventListener('click', function() {
+				// console.log("summary trigger clicked");
+				summaryBox.classList.add("hidden");
+				ledgerBox.classList.add("hidden");
+				transactionBox.classList.add("hidden");
+				membersBox.classList.remove("hidden");
+		})
+
+	// LEGER VARIABLES
+		const frequencyBox = document.getElementById("frequency-box");
+		const oneTime = document.getElementById("one-time");
+		const recurring = document.getElementById("recurring");
+		const broker = document.getElementById("broker");
+
+	// BROKERS
+
+		const caroline = {name: "Caroline Savery", username: "@carolinesavery"};
+		const deacon = {name: "Deacon Rodda", username: "@deaconrodda"};
+		const drew = {name: "Drew Hornbein", username: "@drewhornbein"};
+		brokers = [caroline, deacon, drew];
+
+
+	// LEDGER OPERATIONS
+
+		// REVEAL FREQUENCY BOX
+			recurring.addEventListener('change', function() {
+				frequencyBox.classList.toggle("hidden");
+			});
+			oneTime.addEventListener('change', function() {
+				frequencyBox.classList.toggle("hidden");
+			});
+
+		// 
+
+
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
